@@ -7,4 +7,5 @@ export interface UserDetails {
 export interface Bookmark {
   id: string;
   bookmark_name: string;
+  desired_date: string;
 }

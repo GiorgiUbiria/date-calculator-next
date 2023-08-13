@@ -18,8 +18,10 @@ const useGetUserBookmarks = () => {
     const fetchBookmarks = async () => {
       const { data, error } = await supabaseClient
         .from('user_date_bookmarks')
-        .select('bookmark_name, id')
+        .select('bookmark_name, id, desired_date')
         .eq('user_id', session?.user.id)
+
+      console.log("Fetched data:", data);
 
       if (error) {
         setIsLoading(false);
