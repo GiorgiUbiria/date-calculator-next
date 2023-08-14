@@ -26,17 +26,17 @@ const Bookmarks = () => {
       const days = Math.floor(remainingTimeMonths / oneDay);
 
       return (
-        <div>
-          <div className='text-xs flex justify-between gap-2 items-center text-neutral-400'>
-            Years left:
+        <div className='px-4'>
+          <div className='text-xs flex flex-col truncate md:flex-row md:justify-between md:gap-2 items-center text-neutral-400'>
+            Years {currentTime.getTime() < date.getTime() ? 'left' : 'from'}:
             <p className='text-base text-white'>{years}</p>
           </div>
-          <div className='text-xs flex justify-between gap-2 items-center text-neutral-400'>
-            Months left:
+          <div className='text-xs flex flex-col truncate md:flex-row md:justify-between md:gap-2 items-center text-neutral-400'>
+            Months {currentTime.getTime() < date.getTime() ? 'left' : 'from'}:
             <p className='text-base text-white'>{months}</p>
           </div>
-          <div className='text-xs flex justify-between gap-2 items-center text-neutral-400'>
-            Days left:
+          <div className='text-xs flex flex-col truncate md:flex-row md:justify-between md:gap-2 items-center text-neutral-400'>
+            Days {currentTime.getTime() < date.getTime() ? 'left' : 'from'}:
             <p className='text-base text-white'>{days}</p>
           </div>
         </div>
@@ -52,10 +52,10 @@ const Bookmarks = () => {
       <h1 className='text-2xl'>Bookmarks</h1>
       {
         isLoading ? (
-          <div className='flex flex-col gap-2 w-full'>
-            <Skeleton className="w-1/2 h-[20px] rounded-full" />
-            <Skeleton className="w-1/2 h-[20px] rounded-full" />
-            <Skeleton className="w-1/2 h-[20px] rounded-full" />
+          <div className='flex flex-col gap-4 w-full'>
+            <Skeleton className="w-full h-[90px] rounded-md py-2 px-2" />
+            <Skeleton className="w-full h-[90px] rounded-md py-2 px-2" />
+            <Skeleton className="w-full h-[90px] rounded-md py-2 px-2" />
           </div>
         )
           : (
