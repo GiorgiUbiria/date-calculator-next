@@ -9,9 +9,6 @@ import useSaveBookmarkForm from "@/hooks/useSaveBookmarkForm";
 
 import ErrorToast from "./ErrorToast";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from './ui/dialog';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
 import { useSessionContext, useSupabaseClient } from "@supabase/auth-helpers-react";
 
 const formSchema = z.object({
@@ -38,6 +35,7 @@ const formSchema = z.object({
 export type FormValues = z.infer<typeof formSchema>;
 
 const CalculationForm = () => {
+  const [bookmarkName, setBookmarkName] = useState<string>('')
   const [values, setValues] = useState<FormValues>({
     day: "",
     month: "",
@@ -111,7 +109,7 @@ const CalculationForm = () => {
 
     const { error } = await supabaseClient.from('user_date_bookmarks').insert({
       user_id: session?.user.id,
-      bookmark_name: "Bookmark Name - 1",
+      bookmark_name: bookmarkName,
       bookmark_tag: "random",
       desired_date: new Date(Number(inputtedYear), Number(inputtedMonth) - 1, Number(inputtedDay)),
     });
@@ -197,7 +195,20 @@ const CalculationForm = () => {
                 <div className="w-full">
                   <form onSubmit={onSaveSubmit} className="space-y-8">
                     <div className='flex flex-col gap-8'>
+                      <div className="flex gap-2 items-center">
+                        <label className="text-xs" htmlFor="bookmarkName">Name:</label>
+                        <input
+                          type="text"
+                          className="px-2 py-1 text-sm w-72"
+                          id="bookmarkName"
+                          name="bookmarkName"
+                          placeholder='What is the name of your bookmark?'
+                          onChange={(e) => setBookmarkName(e.target.value)}
+                          required
+                        />
+                      </div>
                       <div className='flex gap-8'>
+
                         <div className="flex flex-col">
                           <label className="text-xs" htmlFor="inputtedDay">Day</label>
                           <input
@@ -210,6 +221,7 @@ const CalculationForm = () => {
                             disabled
                           />
                         </div>
+
                         <div className="flex flex-col">
                           <label className="text-xs" htmlFor="inputtedMonth">Month</label>
                           <input
@@ -222,6 +234,7 @@ const CalculationForm = () => {
                             disabled
                           />
                         </div>
+
                         <div className="flex flex-col">
                           <label className="text-xs" htmlFor="inputtedYear">Year</label>
                           <input
@@ -234,8 +247,11 @@ const CalculationForm = () => {
                             disabled
                           />
                         </div>
+
                       </div>
+
                       <div className='flex gap-8'>
+
                         <div className="flex flex-col">
                           <label className="text-xs" htmlFor="calculatedDay">Day</label>
                           <input
@@ -248,6 +264,7 @@ const CalculationForm = () => {
                             disabled
                           />
                         </div>
+
                         <div className="flex flex-col">
                           <label className="text-xs" htmlFor="calculatedMonth">Month</label>
                           <input
@@ -260,6 +277,7 @@ const CalculationForm = () => {
                             disabled
                           />
                         </div>
+
                         <div className="flex flex-col">
                           <label className="text-xs" htmlFor="calculatedYear">Year</label>
                           <input
@@ -272,7 +290,9 @@ const CalculationForm = () => {
                             disabled
                           />
                         </div>
+
                       </div>
+
                     </div>
                     <button type="submit">Confirm</button>
                   </form>
